@@ -18,7 +18,7 @@ jobs:
           bundler-cache: true
 
       - name: Scan for security vulnerabilities in Ruby dependencies
-        run: bin/brakeman --no-pager --no-exit-on-update-check
+        run: bin/brakeman --no-pager
 
   scan_js:
     runs-on: ubuntu-latest
