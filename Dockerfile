@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.4.7
+ARG RUBY_VERSION=3.4.8
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -9,15 +9,15 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client libyaml-0-2
+  apt-get install --no-install-recommends -y curl libvips postgresql-client libyaml-0-2
 
 # Set production environment
 ARG BUILD_COMMIT_SHA
 ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development" \
-    BUILD_COMMIT_SHA=${BUILD_COMMIT_SHA}
+  BUNDLE_DEPLOYMENT="1" \
+  BUNDLE_PATH="/usr/local/bundle" \
+  BUNDLE_WITHOUT="development" \
+  BUILD_COMMIT_SHA=${BUILD_COMMIT_SHA}
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
@@ -54,8 +54,8 @@ COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+  useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+  chown -R rails:rails db log storage tmp
 USER 1000:1000
 
 # Entrypoint prepares the database.
