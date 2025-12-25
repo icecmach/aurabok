@@ -61,7 +61,7 @@ gem "faraday-retry"
 gem "faraday-multipart"
 gem "inline_svg"
 gem "octokit"
-gem "pagy"
+gem "pagy", "~> 9.3.5"
 gem "rails-settings-cached"
 gem "tzinfo-data", platforms: %i[windows jruby]
 gem "csv"
@@ -85,6 +85,7 @@ group :development, :test do
   gem "debug", platforms: %i[mri windows]
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
+  gem "rubocop", "~> 1.76.1"
   gem "i18n-tasks"
   gem "erb_lint"
   gem "dotenv-rails"
