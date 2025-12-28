@@ -15,15 +15,6 @@ Rails.application.routes.draw do
   # Uses basic auth - see config/initializers/sidekiq.rb
   mount Sidekiq::Web => "/sidekiq"
 
-  # AI chats
-  resources :chats do
-    resources :messages, only: :create
-
-    member do
-      post :retry
-    end
-  end
-
   resources :family_exports, only: %i[new create index] do
     member do
       get :download
@@ -60,16 +51,8 @@ Rails.application.routes.draw do
     resource :hosting, only: %i[show update] do
       delete :clear_cache, on: :collection
     end
-    resource :billing, only: :show
     resource :security, only: :show
     resource :api_key, only: [ :show, :new, :create, :destroy ]
-  end
-
-  resource :subscription, only: %i[new show create] do
-    collection do
-      get :upgrade
-      get :success
-    end
   end
 
   resources :tags, except: :show do
@@ -212,12 +195,6 @@ Rails.application.routes.draw do
       resources :accounts, only: [ :index ]
       resources :transactions, only: [ :index, :show, :create, :update, :destroy ]
       resource :usage, only: [ :show ], controller: "usage"
-
-      resources :chats, only: [ :index, :show, :create, :update, :destroy ] do
-        resources :messages, only: [ :create ] do
-          post :retry, on: :collection
-        end
-      end
 
       # Test routes for API controller testing (only available in test environment)
       if Rails.env.test?

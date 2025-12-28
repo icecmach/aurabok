@@ -36,7 +36,4 @@ class Family::AutoCategorizerTest < ActiveSupport::TestCase
     # After auto-categorization, all transactions are locked and no longer enrichable
     assert_equal 0, @account.transactions.reload.enrichable(:category_id).count
   end
-
-  private
-    AutoCategorization = Provider::LlmConcept::AutoCategorization
 end

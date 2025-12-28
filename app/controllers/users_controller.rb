@@ -17,16 +17,10 @@ class UsersController < ApplicationController
         redirect_to settings_profile_path, alert: error_message
       end
     else
-      was_ai_enabled = @user.ai_enabled
       @user.update!(user_params.except(:redirect_to, :delete_profile_image))
       @user.profile_image.purge if should_purge_profile_image?
-
-      # Add a special notice if AI was just enabled
-      notice = if !was_ai_enabled && @user.ai_enabled
-        "AI Assistant has been enabled successfully."
-      else
-        t(".success")
-      end
+      
+      notice = t(".success")
 
       respond_to do |format|
         format.html { handle_redirect(notice) }

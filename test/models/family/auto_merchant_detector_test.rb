@@ -36,7 +36,4 @@ class Family::AutoMerchantDetectorTest < ActiveSupport::TestCase
     # After auto-detection, all transactions are locked and no longer enrichable
     assert_equal 0, @account.transactions.reload.enrichable(:merchant_id).count
   end
-
-  private
-    AutoDetectedMerchant = Provider::LlmConcept::AutoDetectedMerchant
 end
