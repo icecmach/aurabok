@@ -80,7 +80,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(
         :first_name, :last_name, :email, :profile_image, :redirect_to, :delete_profile_image, :onboarded_at,
-        :show_sidebar, :default_period, :show_ai_sidebar, :theme, :set_onboarding_preferences_at, :set_onboarding_goals_at,
+        :show_sidebar, :default_period, :theme, :set_onboarding_preferences_at, :set_onboarding_goals_at,
         family_attributes: [ :name, :currency, :country, :locale, :date_format, :timezone, :id ],
         goals: []
       )

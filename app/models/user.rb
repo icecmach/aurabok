@@ -80,10 +80,6 @@ class User < ApplicationRecord
     end
   end
 
-  def show_ai_sidebar?
-    show_ai_sidebar
-  end
-
   def ai_available?
     !Rails.application.config.app_mode.self_hosted? || ENV["OPENAI_ACCESS_TOKEN"].present?
   end
