@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     else
       @user.update!(user_params.except(:redirect_to, :delete_profile_image))
       @user.profile_image.purge if should_purge_profile_image?
-      
+
       notice = t(".success")
 
       respond_to do |format|
